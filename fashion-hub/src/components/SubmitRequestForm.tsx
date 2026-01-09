@@ -1,0 +1,145 @@
+import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Send } from "lucide-react";
+
+interface SubmitRequestFormProps {
+  onSubmit: (data: any) => void;
+  isSubmitting: boolean;
+}
+
+export default function SubmitRequestForm({ onSubmit, isSubmitting }: SubmitRequestFormProps) {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    location: '',
+    contact_name: '',
+    contact_email: '',
+    contact_phone: ''
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <Card className="border border-gray-200 shadow-lg rounded-lg">
+      <CardHeader className="space-y-1 pb-6">
+        <CardTitle className="playfair text-2xl font-semibold">Submit Your Request</CardTitle>
+        <CardDescription className="text-sm text-gray-600">
+          Share your questions, supplier needs, or collaboration opportunities with the fashion community
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="title" className="text-sm font-medium">Request Title *</Label>
+            <Input
+              id="title"
+              value={formData.title}
+              onChange={(e) => handleChange('title', e.target.value)}
+              placeholder="e.g., Looking for sustainable fabric suppliers in Melbourne"
+              required
+              className="h-11"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="category" className="text-sm font-medium">Category *</Label>
+            <Select value={formData.category} onValueChange={(value) => handleChange('category', value)} required>
+              <SelectTrigger className="h-11">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Suppliers Needed">Suppliers Needed</SelectItem>
+                <SelectItem value="Materials & Resources">Materials & Resources</SelectItem>
+                <SelectItem value="Technical Help">Technical Help</SelectItem>
+                <SelectItem value="Collaboration">Collaboration</SelectItem>
+                <SelectItem value="Manufacturing">Manufacturing</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="description" className="text-sm font-medium">Description *</Label>
+            <Textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) => handleChange('description', e.target.value)}
+              placeholder="Provide detailed information about your request..."
+              required
+              rows={6}
+              className="resize-none"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="location" className="text-sm font-medium">Location</Label>
+            <Input
+              id="location"
+              value={formData.location}
+              onChange={(e) => handleChange('location', e.target.value)}
+              placeholder="e.g., Melbourne, Australia"
+              className="h-11"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="contact_name" className="text-sm font-medium">Contact Name</Label>
+              <Input
+                id="contact_name"
+                value={formData.contact_name}
+                onChange={(e) => handleChange('contact_name', e.target.value)}
+                placeholder="Your name"
+                className="h-11"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contact_email" className="text-sm font-medium">Contact Email</Label>
+              <Input
+                id="contact_email"
+                type="email"
+                value={formData.contact_email}
+                onChange={(e) => handleChange('contact_email', e.target.value)}
+                placeholder="your@email.com"
+                className="h-11"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contact_phone" className="text-sm font-medium">Contact Phone</Label>
+              <Input
+                id="contact_phone"
+                value={formData.contact_phone}
+                onChange={(e) => handleChange('contact_phone', e.target.value)}
+                placeholder="+61..."
+                className="h-11"
+              />
+            </div>
+          </div>
+
+          <Button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="w-full h-12 bg-[#3D3935] hover:bg-[#2a2724] text-white font-medium"
+          >
+            <Send className="w-4 h-4 mr-2" />
+            {isSubmitting ? 'Submitting...' : 'Submit Request'}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}
+

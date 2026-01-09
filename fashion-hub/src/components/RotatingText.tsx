@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import OwlIcon from './OwlIcon';
 
-export default function RotatingText({ onClick }) {
-  const textRef = useRef(null);
+interface RotatingTextProps {
+  onClick?: () => void;
+}
+
+export default function RotatingText({ onClick }: RotatingTextProps) {
+  const textRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const text = "REQUEST • CONNECT • COLLABORATE • ";
@@ -31,15 +35,14 @@ export default function RotatingText({ onClick }) {
   return (
     <div 
       onClick={onClick}
-      className="relative w-[140px] h-[140px] cursor-pointer hover:opacity-70 transition-opacity" 
+      className="relative w-[140px] h-[140px] animate-spin cursor-pointer hover:opacity-70 transition-opacity" 
+      style={{ animationDuration: '15s' }}
     >
-      <div 
-        ref={textRef} 
-        className="absolute top-0 left-0 w-full h-full animate-spin"
-        style={{ animationDuration: '15s' }}
-      />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
-        <OwlIcon className="w-14 h-14" />
+      <div ref={textRef} className="relative w-full h-full" />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ animation: 'none' }}>
+        <div className="animate-reverse-spin" style={{ animationDuration: '15s' }}>
+          <OwlIcon className="w-14 h-14" />
+        </div>
       </div>
     </div>
   );
