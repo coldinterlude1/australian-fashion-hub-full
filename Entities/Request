@@ -1,0 +1,58 @@
+{
+  "name": "Request",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the request"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the request"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Suppliers Needed",
+        "Materials & Resources",
+        "Technical Help",
+        "Collaboration",
+        "Manufacturing",
+        "Other"
+      ],
+      "default": "Other",
+      "description": "Category of the request"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "In Progress",
+        "Resolved"
+      ],
+      "default": "Open",
+      "description": "Current status of the request"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location related to the request"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Contact person name"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Contact phone number"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "category"
+  ]
+}

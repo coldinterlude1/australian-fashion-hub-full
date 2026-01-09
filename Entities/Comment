@@ -1,0 +1,32 @@
+{
+  "name": "Comment",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "description": "ID of the request this comment belongs to"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Name of the comment author"
+    },
+    "author_email": {
+      "type": "string",
+      "description": "Email of the comment author"
+    },
+    "content": {
+      "type": "string",
+      "description": "Content of the comment"
+    },
+    "can_help": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the author can help with the request"
+    }
+  },
+  "required": [
+    "request_id",
+    "author_name",
+    "content"
+  ]
+}
