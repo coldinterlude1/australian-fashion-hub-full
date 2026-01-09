@@ -87,7 +87,8 @@ Thumbs.db
 .firebase
 .aws-sam
 
-# Optional: Package manager lock files (uncomment if you want to ignore them)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+# Package manager lock files - KEEP THESE TRACKED (do not ignore)
+# These ensure consistent dependency versions across environments
+# package-lock.json  <- TRACKED (commented out = not ignored)
+# yarn.lock         <- TRACKED if using Yarn
+# pnpm-lock.yaml    <- TRACKED if using pnpm
